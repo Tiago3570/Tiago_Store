@@ -1,0 +1,75 @@
+
+
+Pour bien comprendre le projet suivre les classes Produits
+
+
+
+
+#################################################################################################################
+########## Présentation des couches
+#################################################################################################################
+
+décomposition en couche
+
+Controller              -->         Facade                -->        Service                   --> repository
+
+
+Controller :
+    - @RestController
+    - Il capte les informations du Front et appel la facade
+    - Il faitr la convertion de Json <--> DTO si besoin
+
+
+Facade:
+    - @Service
+    - Il appel les différents services
+    - Il fait la convertion DTO <--> Entity (utilise les populator et les convertor)
+
+Service:
+    - @Service
+    - Il appel le repository
+    - Il contient la logique métier
+    - Il travaille avec des Entity
+
+Repository:
+    - @Repository
+    - Il s'agit d'une interface
+    - Il communique avec la BDD
+    - Il possède des méthodes déjà basique comme finALL() pas besoin de les déclarer
+
+
+Entity:
+    - @Entity
+    - Est la représentation fidèle de la BDD hibernate utilise cette classe pour générer la BDD
+
+
+
+#################################################################################################################
+########## Classes Importantes
+#################################################################################################################
+
+Populator:
+    - @Component
+    - Convertir des Entity en DTO
+    - Utiliser par la facade
+
+Converter
+    - @Component
+    - Convertir les DTO en Entity
+    - utliser par la facade
+
+DTO:
+    - @Data
+    - Objet destiné à sortir de l'application
+    - Permet de filtrer les données pour ne pas remonterer les Entity complète au front
+    - utliser par le front , controller et la facade
+
+
+
+#################################################################################################################
+########## Lombok
+#################################################################################################################
+
+ - Lombok nous évite d'écrire les getter, setter et les constructeur grace à des annotations
+ - Il faut ajouter la dépendance dans le pom
+ - il faut ajouter le plugin lombok sur InteliJ pour qu'il puisse proposer les getter et les setter

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="InsertDonnees Produit" author="Tiago">
+       <sqlFile path="db/changelog/data/InsertDonnees.sql" dbms="postgresql"/>
+    </changeSet>
+
+    <!-- Un exemple de changeSet plus complet -->
+    <!--
+    <changeSet id="seq_matable-create" author="dev">
+        <createSequence sequenceName="seq_matable" />
+    </changeSet>
+    <changeSet id="matable-create" author="dev">
+        <createTable tableName="matable" remarks="Ma table">
+            <column name="id" type="BIGINT" >
+                <constraints primaryKey="true" primaryKeyName="pk_matable" />
+            </column>
+            <column name="monChamp1" type="VARCHAR(255)" />
+        </createTable>
+    </changeSet>-->
+</databaseChangeLog>

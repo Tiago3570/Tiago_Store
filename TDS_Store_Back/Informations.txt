@@ -178,3 +178,68 @@ Pour consulter la documentation générée : http://localhost:8080/swagger-ui.ht
 		</profile>
 
 6 - la commande pour lancer l'annalyse: verify sonar:sonar
+
+
+
+
+#################################################################################################################
+########## Ajout de Liquibase
+#################################################################################################################
+
+1- ajouter la dépendance suivante dans le pom
+
+        <!-- Liquibase -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+
+
+2 - Créer l'arboresance suivante dans resources
+    db/changelog
+    changelog-master.xml
+
+3 - modifier la propriété spring.liquibase.change-log pour modifier le changelog par défaut par défaut spring va prendre
+    db/changelog/db.changelog-master.yaml
+
+    spring.liquibase.change-log=classpath:/db/changelog/changelog-master.xml
+
+4 - on peut éditer les fichiers changelog-master.xml
+
+
+
+remarques:
+
+ - Pour l'exécution de chaque changeset liquibase va enrichir la table databasechangelog. Cette table permet à liquibase
+   de savoir quel sont les changeset qui ont déjà été joué pour ne pas le refaire.
+ - Dans les changeset il est important de mettre
+        id="InsertDonnees Produit"
+        author="Tiago"
+  ces informations seront dans dans la table databasechangelog
+
+  - Si tu veux rejoué un changeset il faut supprimé la ligne dans la table databasechangelog
+
+Pour approfondir prenre le tag liquibase de git et jouer avec les défirentes options de
+        spring.jpa.hibernate.ddl-auto: [create-drop, update, validate, create]
+        et supprimé des changeset de la table databasechangelog
+        pour voir s'il s'on rejoué et que l'execution fonctionne bien
+
+Exemple
+ - spring.jpa.hibernate.ddl-auto: create-drop  (Ne supprime pas les changset mais les autres tables oui)
+ - spring.jpa.hibernate.ddl-auto: create (Enrichie la table databasechangelog mais ne semble pas exexcuté le changeset)
+
+
+ Purger et refaire la BDD :
+    1 - lancer avec spring.jpa.hibernate.ddl-auto: create
+    2 - supprimer tous les données de databasechangelog
+    3 - lancer avec spring.jpa.hibernate.ddl-auto: update
+
+
+ create - Hibernate supprime d'abord les tables existantes, puis crée de nouvelles tables
+ update - le modèle d'objet créé sur la base des mappages (annotations ou XML) est comparé au schéma existant,
+          puis Hibernate met à jour le schéma en fonction du diff.
+          Il ne supprime jamais les tables ou colonnes existantes même si elles ne sont plus requises par l'application
+ create-drop - similaire à  create , avec l'ajout qu'Hibernate supprimera la base de données
+          une fois toutes les opérations terminées. Généralement utilisé pour les tests unitaires
+ validate - Hibernate valide uniquement si les tables et les colonnes existent, sinon il lève une exception
+ aucun - cette valeur désactive efficacement la génération DDL

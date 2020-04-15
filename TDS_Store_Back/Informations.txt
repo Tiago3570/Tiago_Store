@@ -73,3 +73,108 @@ DTO:
  - Lombok nous évite d'écrire les getter, setter et les constructeur grace à des annotations
  - Il faut ajouter la dépendance dans le pom
  - il faut ajouter le plugin lombok sur InteliJ pour qu'il puisse proposer les getter et les setter
+
+
+
+#################################################################################################################
+########## Ajout de Swager
+#################################################################################################################
+
+1 - Ajouter les dépendance
+
+        <dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+2 - Ajouter la classe de configuration SwaggerConfig
+
+3 - Ajouter l'annotation @EnableSwagger2 dans la classe main du projet
+
+4 - Mettre les annotation @Api @ApiOperation pour documenter
+
+Pour consulter la documentation générée : http://localhost:8080/swagger-ui.html
+
+
+
+
+
+#################################################################################################################
+########## Ajout de Sonar
+#################################################################################################################
+
+1 - Démarrer le Bat de Sonar
+
+2 - URL de Sonar : http://localhost:9000/projects
+
+3 - ajouter les dépandances
+
+        <dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.1-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+
+4 - ajouter les plugins
+
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.6.0.1398</version>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.4</version>
+			</plugin>
+
+5 - ajouter le profil pour la couverture de code
+
+        <profile>
+			<id>coverage</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+6 - la commande pour lancer l'annalyse: verify sonar:sonar

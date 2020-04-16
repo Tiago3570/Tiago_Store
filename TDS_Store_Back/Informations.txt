@@ -243,3 +243,21 @@ Exemple
           une fois toutes les opérations terminées. Généralement utilisé pour les tests unitaires
  validate - Hibernate valide uniquement si les tables et les colonnes existent, sinon il lève une exception
  aucun - cette valeur désactive efficacement la génération DDL
+
+
+
+
+#################################################################################################################
+########## Anotation REST Convention
+#################################################################################################################
+
+ GET : Accède à une ressource
+ POST : Ajoute une ressource
+ PUT : Met à jour une ressource complète en la remplaçant par une nouvelle version (99% des cas).
+ PATCH : Met à jour une partie d’une ressource en envoyant un différentiel (une sorte de ‘git diff’)
+ DELETE : Supprime une ressource
+
+ 2xx indique le succès.
+ 3xx redirige le client ailleurs.
+ 4xx indique une faute de la part du client.
+ 5xx indique une erreur de la part du serveur.

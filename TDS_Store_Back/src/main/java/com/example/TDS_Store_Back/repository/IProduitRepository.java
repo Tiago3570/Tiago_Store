@@ -16,7 +16,6 @@ public interface IProduitRepository extends JpaRepository<ProduitEntity, Long> {
 
     // Il ne faut pas oublier le value et le nativeQuery = true
     // il faut retourner l'ensemble de la table sinon on a une erreur. Il faut tous les éléments de ProduitEntity
-
     /**
      * Méthode qui récupère tous les produits de la BDD possédent un prix supérieur au prix en paramètre
      * @param prix

@@ -27,4 +27,30 @@ public interface IProduitService {
      */
     List<ProduitEntity> chercherUnProduitCher(Long prix);
 
+    /**
+     * sauvegarde le produit
+     * @param produitEntity
+     * @return le produit sauvegarder
+     */
+    ProduitEntity save(ProduitEntity produitEntity);
+
+    /**
+     * met à jour un produit
+     * @param produitEntity
+     * @return le produit mis à jour
+     */
+    ProduitEntity update(ProduitEntity produitEntity);
+
+    /**
+     * supprime le poroduit
+     * @param produitEntity
+     */
+    void delete(ProduitEntity produitEntity);
+
+    /**
+     * supprime le produit en fontion de l'id
+     * @param id
+     */
+    void deleteById(Long id);
+
 }

@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +17,11 @@ import java.util.Date;
 @NoArgsConstructor          // Lambock demande d'un construteur vide
 @Getter                     // Demande tous les Getter
 @Setter                     // Demande tous les setter
+
+/*
+// Permet de mettre une condition quand on fait un get le where vaa se rajouter à la requête
+@Where(clause = "deleted = false")
+*/
 
 /*
  * Lambok si tu souhaite que IntLij te propose les Get et les Set il faut installer le plugin Lambock
@@ -39,24 +44,23 @@ public class ProduitEntity implements Serializable {
     private static final long serialVersionUID = 5104355377350251539L;
 
     @Id
-    @GeneratedValue         // Insertion automatique de la valeur
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produit_generator")
+    @SequenceGenerator(name="produit_generator", sequenceName = "produit_seq", allocationSize=1)
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "NOM")
     private String nom;
 
-    @Column(name = "PRIX")
+    @Column(name = "PRIX", nullable = false)
     private Float prix;
 
     @Column(name = "PRIX_ACHAT")
     private Float prixAchat;
 
-    @CreatedDate            // On demande d'inserer la date à la première création
     @Column(name = "CREATION_DATE", updatable = false, nullable = false)
     private Date creationDate;
 
-    @LastModifiedDate       // a chaque modification on mets à jour la date
     @Column(name = "MODIFICATION_DATE")
     private Date modificationDate;
 

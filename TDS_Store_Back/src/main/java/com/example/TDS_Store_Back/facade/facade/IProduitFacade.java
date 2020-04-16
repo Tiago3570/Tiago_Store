@@ -25,4 +25,30 @@ public interface IProduitFacade {
      * @return
      */
     List<ProduitDTO> chercherUnProduitCher(Long prix);
+
+    /**
+     * Sauvegarde le produit en BDD
+     * @param produitDTO retourne le produit sauvegarder
+     * @return
+     */
+    ProduitDTO save(ProduitDTO produitDTO);
+
+    /**
+     * Mets à jour le produit en BDD
+     * @param produitDTO retourne le produit sauvegarder
+     * @return
+     */
+    ProduitDTO update(ProduitDTO produitDTO);
+
+    /**
+     * Suppirme le produit passer en paramètre
+     * @param produitDTO
+     */
+    void delete(ProduitDTO produitDTO);
+
+    /**
+     * Supprime le produit en fonction du ID
+     * @param id
+     */
+    void deleteById(Long id);
 }

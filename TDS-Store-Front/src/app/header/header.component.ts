@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     //TODO revoir le système pour que le bouton connexion devien deconnexion au moment de la connexion.
     //this.authService.signIn();
+    // test
     //this.isAuth = this.authService.isAuth;
   }
 

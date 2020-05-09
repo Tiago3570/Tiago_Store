@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <h1>Ajouter un produit formulaire</h1>
+    <form [formGroup]="ajouterProduitForm" (ngSubmit)="onSaveProduit()">
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" class="form-control" id="nom" aria-describedby="emailHelp" formControlName="nom" uppercaseDirective>
+        <p class="text-danger" *ngIf='!ajouterProduitForm.controls.nom.pristine && ajouterProduitForm.controls.nom.invalid'> erreur dans le nom</p>
+      </div>
+      <div class="form-group">
+        <label for="prix">Prix</label>
+        <input type="text" class="form-control" id="prix" formControlName="prix">
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!ajouterProduitForm.valid">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+

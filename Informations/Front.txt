@@ -1,0 +1,65 @@
+
+***********************************************************
+**** Ajout du i18n
+***********************************************************
+
+https://github.com/ngx-translate/core#installation
+1) installer les dépendances
+ - npm install @ngx-translate/core --save
+ - npm install @ngx-translate/http-loader --save
+
+
+2) Creer le répertoire dans assets
+    i18n/fr/fr.json
+
+3) Dans app.modules faire les modifications suivantes
+(https://stackblitz.com/github/ngx-translate/example?file=src%2Fapp%2Fapp.component.ts)
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/fr/', '.json');
+}
+
+dans la section import
+TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [ HttpClient ]
+      }
+}),
+
+export class AppModule {
+
+  constructor(translate: TranslateService) {
+    translate.setDefaultLang('fr');
+    translate.use('fr');
+  }
+}
+
+4) Appeler une clé depuis un fichier HTML
+
+ <h1>{{'produit.liste.titre' | translate}} </h1>
+
+
+
+-- Remarque
+
+Avec cette méthode on ne peut lire qu'un seul fichier .json
+Pour en ouvir plussieurs il faut utiliser le plugin MergeJsonWebpackPlugin
+https://www.npmjs.com/package/merge-jsons-webpack-plugin
+
+
+
+***********************************************************
+**** Les directives pour les input
+***********************************************************
+
+- Ecrire la directive
+- Ajouter la directive dans appModule dans declaration
+- appeler la directive juste avec le nom
+

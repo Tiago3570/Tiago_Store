@@ -4,15 +4,15 @@ import com.example.TDS_Store_Back.exception.ProduitIntrouvableException;
 import com.example.TDS_Store_Back.facade.dto.ProduitDTO;
 import com.example.TDS_Store_Back.facade.facade.IProduitFacade;
 import com.example.TDS_Store_Back.json.ProduitJson;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @CrossOrigin  // Pour donner l'autorisation au front de consulter l'url
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping({"/api"})
 
 // Pour ajouter des informations à swagger facultatif
-@Api(description= "Gestion des produits")
+@Tag(name = "Produit", description = "Gestion des produits")  // Remplace @Api
 public class ProduitController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class ProduitController {
      * @param id
      * @return
      */
-    @ApiOperation(value="Retourne le produit en fonction de l'ID") //swager
+    @Operation(summary ="Retourne le produit en fonction de l'ID") //swager
     @GetMapping(value = "Produits/{id}")
     public ResponseEntity<ProduitDTO> getProduitById(@PathVariable Long id){
         ProduitDTO produitDTO = this.produitFacade.getProduitById(id);
@@ -46,7 +46,7 @@ public class ProduitController {
      * @return
      * @throws ProduitIntrouvableException
      */
-    @ApiOperation(value="Retourne tous les produits de la BDD") //swager
+    @Operation(summary ="Retourne tous les produits de la BDD") //swager
     @GetMapping(value = "Produits")
     public ResponseEntity<ProduitDTO> getAllProduit() throws ProduitIntrouvableException {
         List<ProduitDTO> listProduitDTO = this.produitFacade.findAll();
@@ -58,7 +58,7 @@ public class ProduitController {
      * @param prix
      * @return
      */
-    @ApiOperation(value="Retourne tous les produits on le prix est supérieur au prix en paramètre") //swager
+    @Operation(summary ="Retourne tous les produits on le prix est supérieur au prix en paramètre") //swager
     @GetMapping(value = "Produits/rush/{prix}")
     public ResponseEntity<List<ProduitDTO>> getProduitCher(@PathVariable Long prix){
         List<ProduitDTO> listProduitDTO = this.produitFacade.chercherUnProduitCher(prix);
@@ -66,7 +66,7 @@ public class ProduitController {
     }
 
     @PostMapping(value = "Produits")
-    @ApiOperation(value="Ajoute le produit à la BDD et retourne le produit")
+    @Operation(summary ="Ajoute le produit à la BDD et retourne le produit")
     // Pour que @Valid fonctionne il faut des anotation de vérification dans Product comme @Length
     public ResponseEntity<ProduitDTO> ajouterProduit(@Valid @RequestBody ProduitJson produitJson){
 
@@ -80,7 +80,7 @@ public class ProduitController {
 
 
     @PutMapping(value = "Produits")
-    @ApiOperation(value="Mets à jour le produit fourni en paramètre et retourne le produit à jour")
+    @Operation(summary ="Mets à jour le produit fourni en paramètre et retourne le produit à jour")
     public ResponseEntity<ProduitDTO> modifierProduit(@Valid @RequestBody ProduitJson produitJson){
 
         // conversion de l'objet JSON
@@ -92,7 +92,7 @@ public class ProduitController {
     }
 
     @DeleteMapping(value = "Produits")
-    @ApiOperation(value="Supprime le produit passer en paramètre")
+    @Operation(summary ="Supprime le produit passer en paramètre")
     public ResponseEntity supprimerProduit(@Valid @RequestBody ProduitJson produitJson){
 
         // conversion de l'objet JSON
@@ -104,7 +104,7 @@ public class ProduitController {
     }
 
     @DeleteMapping(value = "Produits/{id}")
-    @ApiOperation(value="Supprime le produit en fonction de l'id")
+    @Operation(summary ="Supprime le produit en fonction de l'id")
     public ResponseEntity supprimerProduit(@PathVariable Long id){
         this.produitFacade.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);

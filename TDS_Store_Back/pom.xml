@@ -20,6 +20,12 @@
 
 	<properties>
 		<java.version>21</java.version>
+		<!-- Mettre le token generer sur sonar : mon compte -W security -->
+		<!-- Sonar v25 -->
+		<sonar.login>squ_52c26a39f25ad2d85ca761d9973e62f2652106a0</sonar.login>
+		<!-- Sonar v9 -->
+		<!--<sonar.login>8c71bf698c7cf426c6f955cdce460accda485e25</sonar.login>-->
+
 	</properties>
 
 	<dependencies>
@@ -101,7 +107,10 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering> <!-- Désactive le filtrage -->
 				<includes>
-					<include>application.properties</include>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.yml</include>
+					<include>**/*.sql</include>
 				</includes>
 			</resource>
 		</resources>
@@ -141,7 +150,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.4</version>
+				<version>0.8.13</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>

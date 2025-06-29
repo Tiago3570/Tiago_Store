@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "TDS-Store-Front"
+    }
+  },
+  "defaultProject": "TDS-Store-Front",
+  "cli": {
+    "analytics": "53f27f5d-5346-46a1-ab2c-df7dfa3812d2"
+  }
 }
